@@ -1,6 +1,6 @@
-﻿using Data.Context;
+﻿using TaxiApplication.DAL.Context;
 
-namespace Data.Entities;
+namespace TaxiApplication.DAL.Extensions;
 
 public class DBInitializer
 {

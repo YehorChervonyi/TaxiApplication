@@ -1,6 +1,6 @@
-﻿namespace Data.Entities;
+﻿namespace TaxiApplication.DAL.Entities;
 
 public abstract class BaseEntity
 {
-    public uint id { get; set; }
+    public int id { get; set; } 
 }

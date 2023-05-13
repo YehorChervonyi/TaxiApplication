@@ -1,4 +1,4 @@
-﻿namespace Data.Entities;
+﻿namespace TaxiApplication.DAL.Entities;
 
 public class Tariff : BaseEntity
 {
@@ -6,5 +6,5 @@ public class Tariff : BaseEntity
     public float  price { get; set; }
     public float fee { get; set; }
     
-    public ICollection<Car>? cars { get; set; } = new HashSet<Car>();
+    public virtual ICollection<Car>? cars { get; set; } = new HashSet<Car>();
 }

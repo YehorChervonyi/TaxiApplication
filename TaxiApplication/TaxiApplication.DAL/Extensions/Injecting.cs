@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using TaxiApplication.DAL.Context;
 
-namespace Data.Entities;
+namespace TaxiApplication.DAL.Extensions;
 
 public static class Injecting
 {
@@ -10,7 +11,7 @@ public static class Injecting
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<Data.Context.DBContext>(options =>
+        services.AddDbContext<DBContext>(options =>
         {
             options.UseSqlServer(
                 configuration["ConnectionString"]);

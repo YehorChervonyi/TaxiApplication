@@ -1,4 +1,4 @@
-﻿namespace Data.Entities;
+﻿namespace TaxiApplication.DAL.Entities;
 
 public class Car : BaseEntity
 {

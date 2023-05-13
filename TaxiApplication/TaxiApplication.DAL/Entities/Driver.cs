@@ -1,4 +1,4 @@
-﻿namespace Data.Entities;
+﻿namespace TaxiApplication.DAL.Entities;
 
 public class Driver : BaseEntity
 {
@@ -8,7 +8,7 @@ public class Driver : BaseEntity
     
     public int? carId { get; set; }
 
-    public ICollection<Order>? orders { get; set; } = new HashSet<Order>();
-    public ICollection<Car>? cars { get; set; } = new HashSet<Car>();
+    public virtual ICollection<Order>? orders { get; set; } = new HashSet<Order>();
+    public virtual ICollection<Car>? cars { get; set; } = new HashSet<Car>();
     
 }

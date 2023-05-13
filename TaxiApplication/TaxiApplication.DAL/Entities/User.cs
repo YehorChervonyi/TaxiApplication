@@ -1,4 +1,4 @@
-﻿namespace Data.Entities;
+﻿namespace TaxiApplication.DAL.Entities;
 
 public class User : BaseEntity
 {
@@ -8,5 +8,5 @@ public class User : BaseEntity
     public string login { get; set; }
     public string password { get; set; }
 
-    public ICollection<Order>? orders { get; set; } = new HashSet<Order>();
+    public virtual ICollection<Order>? orders { get; set; } = new HashSet<Order>();
 }
