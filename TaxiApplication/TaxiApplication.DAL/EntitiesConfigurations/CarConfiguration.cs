@@ -25,8 +25,8 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
         builder
             .HasOne(x => x.driver)
             .WithMany(x => x.cars)
-            .HasForeignKey(x=> x.id)
-            .HasPrincipalKey(x=> x.carId);
+            .HasForeignKey(x=> x.driverId)
+            .HasPrincipalKey(x=> x.id);
         
         builder
             .HasOne(x => x.tariff)
