@@ -8,7 +8,7 @@ public class Order : BaseEntity
     public int status { get; set; }
     public float price { get; set; }
     public DateTime timeStart { get; set; }
-    public DateTime timeFinish { get; set; }
+    public DateTime? timeFinish { get; set; }
 
     public virtual User user { get; set; }
     public virtual Driver? driver { get; set; }
