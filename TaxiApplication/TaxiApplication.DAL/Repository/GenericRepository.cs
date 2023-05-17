@@ -1,7 +1,9 @@
-﻿using TaxiApplication.DAL.Context;
+﻿using System.Runtime.Intrinsics.X86;
+using Microsoft.EntityFrameworkCore;
+using TaxiApplication.DAL.Context;
 using TaxiApplication.DAL.Entities;
 
-namespace TaxiApplication.BL.Repository;
+namespace TaxiApplication.DAL.Repository;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 {
@@ -19,12 +21,12 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         return result.Entity;
     }
 
-    public async Task<TEntity> UpdateAsync(TEntity entity)
+    public async Task<TEntity> UpdateAsync(TEntity entity, int id)
     {
-        _context.Set<TEntity>().Update(entity);
-        // _context.Entry(entity).State = EntityState.Modified;
+        entity.id = id;
+        var result =  _context.Set<TEntity>().Update(entity);
         await _context.SaveChangesAsync();
-        return entity;
+        return result.Entity;
     }
 
     public async Task DeleteAsync(int id)
@@ -40,5 +42,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     public IQueryable<TEntity> GetAll()
     {
         return _context.Set<TEntity>().AsQueryable();
+    }
+
+    public async Task<TEntity> GetById(int id)
+    {
+        var result = await _context.Set<TEntity>().FindAsync(id);
+        return result;
     }
 }
