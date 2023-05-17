@@ -1,23 +1,22 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TaxiApplication.BL.Mapping;
-using TaxiApplication.BL.Repository;
-using TaxiApplication.DAL.Extensions;
+using TaxiApplication.BL.Services.Classes;
+using TaxiApplication.BL.Services.Interfaces;
 
 namespace TaxiApplication.BL.Extensions;
 
 public static class AddServicesExtension
 {
-    public static void AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static void AddServices(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IGenericRepository<>));
 
-        // services.AddScoped<IGenericRepository>();
-        services.AddScoped(typeof(Injecting));
-        services.AddAutoMapper(
-            config =>
-            {
-                config.AddProfile(typeof(AutoMapperProfile));
-            });
+        services.AddScoped<ICarService, CarService>();
+        services.AddScoped<IDriverService, DriverService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ITariffService, TariffService>();
+        services.AddScoped<IUserService, UserService>();
+        
+        
+        services.AddAutoMapper(typeof(AutoMapperProfile));
     }
 }
