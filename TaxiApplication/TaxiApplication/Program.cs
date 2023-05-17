@@ -1,5 +1,7 @@
+using TaxiApplication.BL.Extensions;
 using TaxiApplication.DAL.Context;
 using TaxiApplication.DAL.Extensions;
+using TaxiApplication.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.Inject(builder.Configuration);
+
+builder.Services.AddServices();
+
+builder.Services.AddMapper();
+
+builder.Services.AddSwaggerGen();
 
 
 
@@ -33,6 +41,13 @@ using(var scope = app.Services.CreateScope())
         throw exception;
     }
 }
+
+app.UseSwagger();
+app.UseSwaggerUI(config =>
+{
+    config.RoutePrefix = "docs";
+    config.SwaggerEndpoint("/swagger/v1/swagger.json", "TaxiApplication");
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
