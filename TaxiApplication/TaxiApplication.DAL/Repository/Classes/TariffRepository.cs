@@ -10,4 +10,16 @@ public class TariffRepository: GenericRepository<Tariff>, ITariffRepository
     {
         
     }
+    
+    public IQueryable GetTariffByCarId(int id)
+    {
+        var tariffs = GetAll().Where(tariff => tariff.cars.Any(car => car.id == id));
+        return tariffs;
+    }
+    
+    public IQueryable GetTariffByName(string name)
+    {
+        var tariffs = GetAll().Where(tariff => tariff.name == name);
+        return tariffs;
+    }
 }

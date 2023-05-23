@@ -13,7 +13,13 @@ public class DriverRepository: GenericRepository<Driver>, IDriverRepository
 
     public IQueryable GetDriversByCarId(int id)
     {
-        var driver = GetAll().Where(driver => driver.cars.Any(car => car.id == id));
-        return driver;
+        var drivers = GetAll().Where(driver => driver.cars.Any(car => car.id == id));
+        return drivers;
+    }
+    
+    public IQueryable GetDriversByOrderId(int id)
+    {
+        var orders = GetAll().Where(driver => driver.orders.Any(order => order.id == id));
+        return orders;
     }
 }
