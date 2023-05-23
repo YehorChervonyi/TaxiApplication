@@ -64,7 +64,14 @@ public class DriverController : Controller
     {
         var drivers = _driverService.GetDriversByCarId(id);
         var mappedDrivers = _mapper.ProjectTo<DriverDto>(drivers);
-        // return Ok(mappedDrivers);
+        return Ok( await JsonConvert.SerializeObjectAsync(mappedDrivers));
+    }
+    
+    [HttpGet("getDriversByOrderId")]
+    public async Task<IActionResult> getDriversByOrderId(int id)
+    {
+        var drivers = _driverService.GetDriversByOrderId(id);
+        var mappedDrivers = _mapper.ProjectTo<DriverDto>(drivers);
         return Ok( await JsonConvert.SerializeObjectAsync(mappedDrivers));
     }
 }

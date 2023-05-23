@@ -29,10 +29,10 @@ public class TariffController : Controller
     }
 
     [HttpPut("updateTariff")]
-    public async Task<IActionResult> updateTariff(int id ,TariffDto tariff)
+    public async Task<IActionResult> updateTariff(TariffDto tariff)
     {
         var mappedTariff = _mapper.Map<TariffModel>(tariff);
-        await _tariffService.UpdateTariffAsync(mappedTariff, id);
+        await _tariffService.UpdateTariffAsync(mappedTariff, tariff.id);
         return Ok();
     }
 
@@ -57,6 +57,22 @@ public class TariffController : Controller
         var tariff =  await _tariffService.GetTariffById(id);
         var mappedTariff = _mapper.Map<TariffDto>(tariff);
         return Ok(await JsonConvert.SerializeObjectAsync(mappedTariff));
+    }
+    
+    [HttpGet("getTariffByCarId")]
+    public async Task<IActionResult> getTariffByCarId(int id)
+    {
+        var tariffs = _tariffService.GetTariffByCarId(id);
+        var mappedTariffs = _mapper.ProjectTo<TariffDto>(tariffs);
+        return Ok(await JsonConvert.SerializeObjectAsync(mappedTariffs));
+    }
+    
+    [HttpGet("getTariffByName")]
+    public async Task<IActionResult> getTariffByName(string name)
+    {
+        var tariffs = _tariffService.GetTariffByName(name);
+        var mappedTariffs = _mapper.ProjectTo<TariffDto>(tariffs);
+        return Ok(await JsonConvert.SerializeObjectAsync(mappedTariffs));
     }
     
 }

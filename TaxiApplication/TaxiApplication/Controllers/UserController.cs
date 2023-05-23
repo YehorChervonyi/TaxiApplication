@@ -19,7 +19,7 @@ public class UserController : Controller
         _mapper = mapper;
     }
     
-        [HttpPost("newUser")]
+    [HttpPost("newUser")]
     public async Task<IActionResult> newUser(UserDto user)
     {
         var mappedUser = _mapper.Map<UserModel>(user);
@@ -57,6 +57,22 @@ public class UserController : Controller
        var mappedUser = _mapper.Map<UserDto>(user);
        
        return Ok(mappedUser);
+    }
+    
+    [HttpGet("getUserByOrderId")]
+    public async Task<IActionResult> getUserByOrderId(int id)
+    {
+        var allUsers =  _userService.GetUserByOrderId(id);
+        var users =  _mapper.ProjectTo<UserDto>(allUsers);
+        return Ok(await JsonConvert.SerializeObjectAsync(users));
+    }
+    
+    [HttpGet("getUserByLogin")]
+    public async Task<IActionResult> getUserByLogin(string login)
+    {
+        var allUsers =  _userService.GetUserByLogin(login);
+        var users =  _mapper.ProjectTo<UserDto>(allUsers);
+        return Ok(await JsonConvert.SerializeObjectAsync(users));
     }
     
 }

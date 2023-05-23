@@ -58,4 +58,28 @@ public class CarController : Controller
         var mappedCar = _mapper.Map<CarDto>(car);
         return Ok(await JsonConvert.SerializeObjectAsync(mappedCar));
     }
+    
+    [HttpGet("getCarByDriverId")]
+    public async Task<IActionResult> getCarByDriverId(int id)
+    {
+        var car =  _carService.GetCarByDriverId(id);
+        var mappedCar = _mapper.ProjectTo<CarDto>(car);
+        return Ok(await JsonConvert.SerializeObjectAsync(mappedCar));
+    }
+    
+    [HttpGet("getCarByTariffId")]
+    public async Task<IActionResult> getCarByTariffId(int id)
+    {
+        var car =  _carService.GetCarByTariffId(id);
+        var mappedCar = _mapper.ProjectTo<CarDto>(car);
+        return Ok(await JsonConvert.SerializeObjectAsync(mappedCar));
+    }
+    
+    [HttpGet("getFreeCarsByTariffId")]
+        public async Task<IActionResult> getFreeCarsByTariffId(int id)
+        {
+            var car =  _carService.GetFreeCarsByTariffId(id);
+            var mappedCar = _mapper.ProjectTo<CarDto>(car);
+            return Ok(await JsonConvert.SerializeObjectAsync(mappedCar));
+        }
 }

@@ -1,5 +1,9 @@
 ﻿using System.Diagnostics;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TaxiApplication.BL.Services.Interfaces;
 using TaxiApplication.Models;
 
 namespace TaxiApplication.Controllers;
@@ -7,21 +11,45 @@ namespace TaxiApplication.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IOrderService _orderService;
+    private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IOrderService orderService, IUserService userService,
+        IMapper mapper)
     {
+        _orderService = orderService;
         _logger = logger;
+        _mapper = mapper;
     }
 
     public IActionResult Index()
     {
-        return View();
+        return Map();
     }
-
     public IActionResult Privacy()
     {
         return View();
     }
+
+    public IActionResult Map()
+    {
+        return View();
+    }
+
+    public IActionResult SignIn()
+    {
+        return View();
+    }
+
+    public IActionResult LogIn()
+    {
+        return View();
+    }
+    public IActionResult Logout()
+    {
+        return Map();
+    }
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
