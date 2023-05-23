@@ -44,5 +44,23 @@ public class CarService : ICarService
     {
         var car = await _carRepository.GetById(id);
         return _mapper.Map<CarModel>(car);
-    }  
+    }
+
+    public IQueryable GetCarByDriverId(int id)
+    {
+        var car = _carRepository.GetCarByDriverId(id);
+        return _mapper.ProjectTo<CarModel>(car);
+    }
+
+    public IQueryable GetCarByTariffId(int id)
+    {
+        var car = _carRepository.GetCarByTariffId(id);
+        return _mapper.ProjectTo<CarModel>(car);
+    }
+
+    public IQueryable GetFreeCarsByTariffId(int id)
+    {
+        var cars = _carRepository.GetFreeCarsByTariffId(id);
+        return _mapper.ProjectTo<CarModel>(cars);
+    }
 }

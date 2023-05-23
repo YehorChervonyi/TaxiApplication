@@ -10,4 +10,6 @@ public interface ITariffService
     Task DeleteTariffAsync(int id);
     IQueryable GetAllTariffs();
     Task<TariffModel> GetTariffById(int id);
+    IQueryable GetTariffByCarId(int id);
+    IQueryable GetTariffByName(string name);
 }

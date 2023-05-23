@@ -11,4 +11,5 @@ public interface IDriverService
     IQueryable GetAllDrivers();
     Task<DriverModel> GetDriverById(int id);
     IQueryable GetDriversByCarId(int id);
+    IQueryable GetDriversByOrderId(int id);
 }

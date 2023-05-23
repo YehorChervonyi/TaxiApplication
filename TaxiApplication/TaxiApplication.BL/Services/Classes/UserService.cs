@@ -45,4 +45,15 @@ public class UserService : IUserService
         var user = await _userRepository.GetById(id);
         return _mapper.Map<UserModel>(user);
     }
+
+    public IQueryable GetUserByOrderId(int id)
+    {
+        var user = _userRepository.GetUserByOrderId(id);
+        return _mapper.ProjectTo<UserModel>(user);
+    }
+    public IQueryable GetUserByLogin(string login)
+    {
+        var user = _userRepository.GetUserByLogin(login);
+        return _mapper.ProjectTo<UserModel>(user);
+    }
 }

@@ -10,5 +10,8 @@ public interface ICarService
     Task DeleteCarAsync(int id);
     IQueryable GetAllCars();
     Task<CarModel> GetCarById(int id);
+    IQueryable GetCarByDriverId(int id);
+    IQueryable GetCarByTariffId(int id);
+    IQueryable GetFreeCarsByTariffId(int id);
 
 }

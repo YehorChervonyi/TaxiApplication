@@ -44,5 +44,23 @@ public class OrderService : IOrderService
     {
         var order = await _orderRepository.GetById(id);
         return _mapper.Map<OrderModel>(order);
-    }  
+    }
+
+    public IQueryable GetOrdersByUserId(int id)
+    {
+        var orders = _orderRepository.GetOrdersByUserId(id);
+        return _mapper.ProjectTo<OrderModel>(orders);
+    }
+
+    public IQueryable GetOrdersByDriverId(int id)
+    {
+        var orders = _orderRepository.GetOrdersByDriverId(id);
+        return _mapper.ProjectTo<OrderModel>(orders);
+    }
+
+    public IQueryable GetOrdersByStatus(int status)
+    {
+        var orders = _orderRepository.GetOrdersByStatus(status);
+        return _mapper.ProjectTo<OrderModel>(orders);
+    }
 }

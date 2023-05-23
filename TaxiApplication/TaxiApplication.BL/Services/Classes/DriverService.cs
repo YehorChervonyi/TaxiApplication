@@ -51,4 +51,10 @@ public class DriverService : IDriverService
         var drivers = _driverRepository.GetDriversByCarId(id);
         return _mapper.ProjectTo<DriverModel>(drivers);
     }
+
+    public IQueryable GetDriversByOrderId(int id)
+    {
+        var driver = _driverRepository.GetDriversByOrderId(id);
+        return _mapper.ProjectTo<DriverModel>(driver);
+    }
 }

@@ -9,4 +9,6 @@ public interface IUserService
     Task DeleteUserAsync(int id);
     IQueryable GetAllUsers();
     Task<UserModel> GetUserById(int id);
+    IQueryable GetUserByOrderId(int id);
+    IQueryable GetUserByLogin(string login);
 }

@@ -44,5 +44,17 @@ public class TariffService : ITariffService
     {
         var tariff = await _tariffRepository.GetById(id); 
         return _mapper.Map<TariffModel>(tariff);
-    }   
+    }
+
+    public IQueryable GetTariffByCarId(int id)
+    {
+        var tariff =  _tariffRepository.GetTariffByCarId(id); 
+        return _mapper.ProjectTo<TariffModel>(tariff);
+    }
+
+    public IQueryable GetTariffByName(string name)
+    {
+        var tariff =  _tariffRepository.GetTariffByName(name); 
+        return _mapper.ProjectTo<TariffModel>(tariff);
+    }
 }
