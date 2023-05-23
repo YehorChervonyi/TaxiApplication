@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.Inject(builder.Configuration);
 
-builder.Services.AddServices();
+builder.Services.AddServices(builder.Configuration);
 
 builder.Services.AddMapper();
 
@@ -49,15 +49,16 @@ app.UseSwaggerUI(config =>
     config.SwaggerEndpoint("/swagger/v1/swagger.json", "TaxiApplication");
 });
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Map}/{id?}");
 
 app.Run();
