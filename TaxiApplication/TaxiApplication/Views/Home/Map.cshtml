@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Map";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+@* <div class="text-center"> *@
+@*     <h1 class="display-4">Map</h1> *@
+@*     <p>Map testing</p> *@
+@* </div> *@
+<div class="text-center">
+    <div id="map" style="width: auto; height: 60vh; position: relative; display: flex; justify-content: center;align-items: center; padding: 0; margin: 0;"></div>
+    <hr>
+    <div id="userPanel" class="d-flex justify-content-evenly mb-3"></div>
+</div>
+
+<style>
+    .dark-theme {
+      background: none;
+      background-color: #212529 !important;
+      color: #adb5bd !important;
+      text-decoration: none; !important;
+      border: none;
+      outline: none;
+    }
+</style>
