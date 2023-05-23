@@ -30,9 +30,17 @@ public class AutoMapperProfile : Profile
             .ForMember(driver => driver.surname,
                 opt => opt.MapFrom(driverModel => driverModel.surname))
             .ForMember(driver => driver.experience,
-                opt => opt.MapFrom(driverModel => driverModel.experience));
-        
+                opt => opt.MapFrom(driverModel => driverModel.experience))
+            .ForMember(driver => driver.status,
+                opt => opt.MapFrom(driverModel => driverModel.status));
+
         CreateMap<OrderModel, Order>()
+            .ForMember(order => order.id,
+                opt => opt.MapFrom(orderModel => orderModel.id))
+            .ForMember(order => order.userId,
+                opt => opt.MapFrom(orderModel => orderModel.userId))
+            .ForMember(order => order.driverId,
+                opt => opt.MapFrom(orderModel => orderModel.driverId))
             .ForMember(order => order.start,
                 opt => opt.MapFrom(orderModel => orderModel.start))
             .ForMember(order => order.finish,
@@ -44,11 +52,11 @@ public class AutoMapperProfile : Profile
             .ForMember(order => order.timeStart,
                 opt => opt.MapFrom(orderModel => orderModel.timeStart))
             .ForMember(order => order.timeFinish,
-                opt => opt.MapFrom(orderModel => orderModel.timeFinish))
-            .ForMember(order => order.driverId,
-                opt => opt.MapFrom(orderModel => orderModel.driverId));
+                opt => opt.MapFrom(orderModel => orderModel.timeFinish));
         
         CreateMap<TariffModel, Tariff>()
+            .ForMember(tariff=>tariff.id,
+                opt=>opt.MapFrom(tariffModel=>tariffModel.id))
             .ForMember(tariff=>tariff.name,
                 opt=>opt.MapFrom(tariffModel=>tariffModel.name))
             .ForMember(tariff=>tariff.price,
@@ -57,6 +65,8 @@ public class AutoMapperProfile : Profile
                 opt=>opt.MapFrom(tariffModel=>tariffModel.fee));
 
         CreateMap<UserModel, User>()
+            .ForMember(user=>user.id,
+                opt=>opt.MapFrom(userModel=>userModel.id))
             .ForMember(user=>user.name,
                 opt=>opt.MapFrom(userModel=>userModel.name))
             .ForMember(user=>user.surname,
@@ -86,9 +96,17 @@ public class AutoMapperProfile : Profile
             .ForMember(driverModel => driverModel.surname,
                 opt => opt.MapFrom(driver => driver.surname))
             .ForMember(driverModel => driverModel.experience,
-                opt => opt.MapFrom(driver => driver.experience));
+                opt => opt.MapFrom(driver => driver.experience))
+            .ForMember(driverModel => driverModel.status,
+                opt => opt.MapFrom(driver => driver.status));
         
         CreateMap<Order, OrderModel>()
+            .ForMember(orderModel => orderModel.id,
+                opt => opt.MapFrom(order => order.id))
+            .ForMember(orderModel => orderModel.userId,
+                opt => opt.MapFrom(order => order.userId))
+            .ForMember(orderModel => orderModel.driverId,
+                opt => opt.MapFrom(order => order.driverId))
             .ForMember(orderModel => orderModel.start,
                 opt => opt.MapFrom(order => order.start))
             .ForMember(orderModel => orderModel.finish,
@@ -103,6 +121,8 @@ public class AutoMapperProfile : Profile
                 opt => opt.MapFrom(order => order.timeFinish));
             
         CreateMap<Tariff, TariffModel>()
+            .ForMember(tariffModel=>tariffModel.id,
+                opt=>opt.MapFrom(tariff=>tariff.id))
             .ForMember(tariffModel=>tariffModel.name,
                 opt=>opt.MapFrom(tariff=>tariff.name))
             .ForMember(tariffModel=>tariffModel.price,
@@ -111,6 +131,8 @@ public class AutoMapperProfile : Profile
                 opt=>opt.MapFrom(tariff=>tariff.fee));
         
         CreateMap<User, UserModel>()
+            .ForMember(userModel=>userModel.id,
+                opt=>opt.MapFrom(user=>user.id))
             .ForMember(userModel=>userModel.name,
                 opt=>opt.MapFrom(user=>user.name))
             .ForMember(userModel=>userModel.surname,

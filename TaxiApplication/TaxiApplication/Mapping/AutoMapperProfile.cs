@@ -31,27 +31,33 @@ public class AutoMapperProfile : Profile
             .ForMember(driverModel=>driverModel.surname,
                 opt=>opt.MapFrom(driverDto=>driverDto.surname))
             .ForMember(driverModel=>driverModel.experience,
-                opt=>opt.MapFrom(driverDto=>driverDto.experience));
-        
+                opt=>opt.MapFrom(driverDto=>driverDto.experience))
+            .ForMember(driverModel=>driverModel.status,
+                opt=>opt.MapFrom(driverDto=>driverDto.status));
+
         CreateMap<OrderDto, OrderModel>()
-            .ForMember(orderModel=>orderModel.userId, 
-                opt=>opt.MapFrom(orderDto=>orderDto.userId))
-            .ForMember(orderModel=>orderModel.start, 
-                opt=>opt.MapFrom(orderDto=>orderDto.start))
-            .ForMember(orderModel=>orderModel.finish, 
-                opt=>opt.MapFrom(orderDto=>orderDto.finish))
-            .ForMember(orderModel=>orderModel.status, 
-                opt=>opt.MapFrom(orderDto=>orderDto.status))
-            .ForMember(orderModel=>orderModel.price, 
-                opt=>opt.MapFrom(orderDto=>orderDto.price))
-            .ForMember(orderModel=>orderModel.timeStart, 
-                opt=>opt.MapFrom(orderDto=>orderDto.timeStart))
-            .ForMember(orderModel=>orderModel.timeFinish, 
-                opt=>opt.MapFrom(orderDto=>orderDto.timeFinish))
-            .ForMember(orderModel=>orderModel.driverId, 
-                opt=>opt.MapFrom(orderDto=>orderDto.driverId));
+            .ForMember(orderModel => orderModel.id,
+                opt => opt.MapFrom(orderDto => orderDto.id))
+            .ForMember(orderModel => orderModel.userId,
+                opt => opt.MapFrom(orderDto => orderDto.userId))
+            .ForMember(orderModel => orderModel.driverId,
+                opt => opt.MapFrom(orderDto => orderDto.driverId))
+            .ForMember(orderModel => orderModel.start,
+                opt => opt.MapFrom(orderDto => orderDto.start))
+            .ForMember(orderModel => orderModel.finish,
+                opt => opt.MapFrom(orderDto => orderDto.finish))
+            .ForMember(orderModel => orderModel.status,
+                opt => opt.MapFrom(orderDto => orderDto.status))
+            .ForMember(orderModel => orderModel.price,
+                opt => opt.MapFrom(orderDto => orderDto.price))
+            .ForMember(orderModel => orderModel.timeStart,
+                opt => opt.MapFrom(orderDto => orderDto.timeStart))
+            .ForMember(orderModel => orderModel.timeFinish,
+                opt => opt.MapFrom(orderDto => orderDto.timeFinish));
 
         CreateMap<TariffDto, TariffModel>()
+            .ForMember(tariffModel=>tariffModel.id,
+                opt=>opt.MapFrom(tariffDto=>tariffDto.id))
             .ForMember(tariffModel=>tariffModel.name,
                 opt=>opt.MapFrom(tariffDto=>tariffDto.name))
             .ForMember(tariffModel=>tariffModel.price,
@@ -60,8 +66,10 @@ public class AutoMapperProfile : Profile
                 opt=>opt.MapFrom(tariffDto=>tariffDto.fee));
 
         CreateMap<UserDto, UserModel>()
+            .ForMember(userModel=>userModel.id
+            ,opt=>opt.MapFrom(userDto=>userDto.id))
             .ForMember(userModel=>userModel.name
-            ,opt=>opt.MapFrom(userDto=>userDto.name))
+                ,opt=>opt.MapFrom(userDto=>userDto.name))
             .ForMember(userModel=>userModel.surname
                 ,opt=>opt.MapFrom(userDto=>userDto.surname))
             .ForMember(userModel=>userModel.phone
@@ -89,11 +97,17 @@ public class AutoMapperProfile : Profile
             .ForMember(driverDto=>driverDto.surname,
                 opt=>opt.MapFrom(driverModel=>driverModel.surname))
             .ForMember(driverDto=>driverDto.experience,
-                opt=>opt.MapFrom(driverModel=>driverModel.experience));
+                opt=>opt.MapFrom(driverModel=>driverModel.experience))
+            .ForMember(driverDto=>driverDto.status,
+                opt=>opt.MapFrom(driverModel=>driverModel.status));
         
         CreateMap<OrderModel, OrderDto>()
+            .ForMember(orderDto=>orderDto.id, 
+                opt=>opt.MapFrom(orderModel=>orderModel.id))
             .ForMember(orderDto=>orderDto.userId, 
                 opt=>opt.MapFrom(orderModel=>orderModel.userId))
+            .ForMember(orderDto=>orderDto.driverId, 
+                opt=>opt.MapFrom(orderModel=>orderModel.driverId))
             .ForMember(orderDto=>orderDto.start, 
                 opt=>opt.MapFrom(orderModel=>orderModel.start))
             .ForMember(orderDto=>orderDto.finish, 
@@ -108,6 +122,8 @@ public class AutoMapperProfile : Profile
                 opt=>opt.MapFrom(orderModel=>orderModel.timeFinish));
 
         CreateMap<TariffModel, TariffDto>()
+            .ForMember(tariffDto=>tariffDto.id,
+                opt=>opt.MapFrom(tariffModel=>tariffModel.id))
             .ForMember(tariffDto=>tariffDto.name,
                 opt=>opt.MapFrom(tariffModel=>tariffModel.name))
             .ForMember(tariffDto=>tariffDto.price,
@@ -116,6 +132,8 @@ public class AutoMapperProfile : Profile
                 opt=>opt.MapFrom(tariffModel=>tariffModel.fee));
         
         CreateMap<UserModel, UserDto>()
+            .ForMember(userDto=>userDto.id
+                ,opt=>opt.MapFrom(userModel=>userModel.id))
             .ForMember(userDto=>userDto.name
                 ,opt=>opt.MapFrom(userModel=>userModel.name))
             .ForMember(userDto=>userDto.surname
