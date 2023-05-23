@@ -23,12 +23,14 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasOne(x => x.user)
             .WithMany(x => x.orders)
             .HasForeignKey(x=>x.userId)
-            .HasPrincipalKey(x=>x.id);
+            .HasPrincipalKey(x=>x.id)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder
             .HasOne(x => x.driver)
             .WithMany(x => x.orders)
             .HasForeignKey(x=>x.driverId)
-            .HasPrincipalKey(x=>x.id);
+            .HasPrincipalKey(x=>x.id)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

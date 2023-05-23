@@ -26,12 +26,14 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
             .HasOne(x => x.driver)
             .WithMany(x => x.cars)
             .HasForeignKey(x=> x.driverId)
-            .HasPrincipalKey(x=> x.id);
+            .HasPrincipalKey(x=> x.id)
+            .OnDelete(DeleteBehavior.SetNull);
         
         builder
             .HasOne(x => x.tariff)
             .WithMany(x => x.cars)
             .HasForeignKey(x=> x.tariffId)
-            .HasPrincipalKey(x=>x.id);
+            .HasPrincipalKey(x=>x.id)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
