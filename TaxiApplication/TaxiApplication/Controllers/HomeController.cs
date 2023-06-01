@@ -11,15 +11,10 @@ namespace TaxiApplication.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IOrderService _orderService;
-    private readonly IMapper _mapper;
 
-    public HomeController(ILogger<HomeController> logger, IOrderService orderService, IUserService userService,
-        IMapper mapper)
+    public HomeController(ILogger<HomeController> logger)
     {
-        _orderService = orderService;
         _logger = logger;
-        _mapper = mapper;
     }
 
     public IActionResult Index()
