@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TaxiApplication.BL.Models;
@@ -34,7 +33,6 @@ public class AuthController : Controller
     {
         var mappedUser = _mapper.Map<UserModel>(user);
         var result = await _authService.Login(mappedUser);
-        Request.Headers.Add("Bearer", result);
         return Ok(await JsonConvert.SerializeObjectAsync(result));
     }
 
@@ -59,10 +57,4 @@ public class AuthController : Controller
         var result = await _authService.CheckLogining(mappedUser);
         return Ok(await JsonConvert.SerializeObjectAsync(result));
     }
-
-    // [HttpPost("logout")]
-    // public async Task<IActionResult> logout()
-    // {
-    //     return Ok();
-    // }
 }
