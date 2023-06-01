@@ -2,17 +2,17 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-$(document).ready(function() {
+$(document).ready(async function() {
     //  default auth header
     var auth;
     if (localStorage.getItem('Bearer'))
     {
-        $.ajaxSetup({
+        await $.ajaxSetup({
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('Bearer')
             }
         });
-        $.ajax({
+        await $.ajax({
             type: 'get',
             url : '/getUserId',
             data:
@@ -36,9 +36,9 @@ $(document).ready(function() {
     var tariffID;
 });
 
-function lastOrders()
+async function lastOrders()
 {
-    $.ajax(
+    await $.ajax(
         {
             type:'get',
             url:'/getOrdersByUserId',
@@ -48,7 +48,6 @@ function lastOrders()
             },
             success: function (res)
             {
-                console.log(res)
                 var result = ``;
                 if (res.length === 0){
                     result = `<img src="/img/PoroSad.png" class="rounded mx-auto d-block">
@@ -77,7 +76,7 @@ async function login(){
         login: $('#login').val(),
         password: $('#pass').val()
     }
-    $.ajax(
+    await $.ajax(
         {
             type:'get',
             url:'/checkLogining',
@@ -121,7 +120,7 @@ async function regisrt(){
             login: $('#login').val(),
             password: $('#pass').val()
         }
-        $.ajax(
+        await $.ajax(
             {
                 type:'get',
                 url:'/checkPhone',
@@ -237,7 +236,7 @@ async function newOrder(price, name){
             sec = 0;
             rand = Math.floor(Math.random() * 60);
             console.log(rand);
-            $.ajax(
+            await $.ajax(
                 {
                     type: 'get',
                     url: '/getTariffByName',
@@ -301,9 +300,9 @@ function waitingForCar()
         '</div>'
     $('#userPanel').html(result);
 }
-function cancelOrder()
+async function cancelOrder()
 {
-    $.ajax({
+    await $.ajax({
         type: 'post',
         url: '/setStatusToLastUserOrder',
         data:
@@ -360,7 +359,7 @@ async function timer()
     
     if (sec === rand)
     {
-        $.ajax({
+        await $.ajax({
             type: 'get',
             url: '/getOrdersByUserId',
             data:
@@ -387,14 +386,10 @@ async function timer()
                                 },
                             success: function (cars) {
                                 const parsedCar = JSON.parse(cars);
-                                
-                                console.log(parsedCar)
-                                console.log(tariffID)
                                 var needbleCar = parsedCar.find(function (car)
                                 {
                                     return car.tariffId === tariffID;
                                 });
-                                console.log(needbleCar)
                                 result = '<div class="card" style="width: 18rem;">'+
                                     '  <img src="/img/driver/driver.png" class="card-img-top rounded-circle"'+
                                     '  <div class="card-body">'+
@@ -403,7 +398,6 @@ async function timer()
                                     '    <button onclick="getTariffs(); cancelOrder()" type="button" class="btn btn-danger">Відмінити замовлення</button>'+
                                     '  </div>'+
                                     '</div>'
-                                console.log(sec, rand)
                                 $('#userPanel').html(result);
                             }
                         });
