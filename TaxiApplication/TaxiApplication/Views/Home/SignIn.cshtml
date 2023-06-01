@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "SignIn";
+    Layout = "_NewLayout";
+}
+
+<div class="text-center">
+    <div class="form-floating w-25 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Реєстрація</h1>
+        <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="login" placeholder="Artem" required>
+            <label for="login">Логін</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input type="password" class="form-control" id="pass" placeholder="Password" required>
+            <label for="pass">Пароль</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="name" placeholder="Арсеній" required>
+            <label for="nmae">Ім'я</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="sur" placeholder="Ігорович">
+            <label for="sur">Призвіще</label>
+        </div>
+        <div class="form-floating">
+            <input type="tel" class="form-control" id="phone" placeholder="Номер"required>
+            <label for="phone">Номер</label>
+        </div>
+        <button onclick="regisrt()" class="w-75 mt-1 btn btn-lg btn-primary">Зареєструватися</button>
+        <p class="mt-5 mb-3 text-body-secondary">© TaxiApplication</p>
+    </div>
+</div>

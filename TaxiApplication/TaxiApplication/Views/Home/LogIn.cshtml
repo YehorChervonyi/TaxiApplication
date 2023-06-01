@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "LogIn";
+    Layout = "_NewLayout";
+}
+
+<div class="text-center">
+    <div class="form-floating w-25 m-auto">
+        <h1 class="h3 mb-3 fw-normal">Вхід</h1>
+        <div class="form-floating mb-2">
+            <input type="text" class="form-control" id="login" placeholder="Artem" required>
+            <label for="login">Логін</label>
+        </div>
+        <div class="form-floating mb-2">
+            <input type="password" class="form-control" id="pass" placeholder="Password" required>
+            <label for="pass">Пароль</label>
+        </div>
+        <button onclick="login()" class="w-75 mt-1 btn btn-lg btn-primary">Ввійти</button>
+        <p class="mt-5 mb-3 text-body-secondary">© TaxiApplication</p>
+    </div>
+</div>
