@@ -3,7 +3,8 @@
 
 // Write your JavaScript code.
 $(document).ready(function() {
-    // Set up default authentication header
+    //  default auth header
+    var auth;
     if (localStorage.getItem('Bearer'))
     {
         $.ajaxSetup({
@@ -11,16 +12,65 @@ $(document).ready(function() {
                 'Authorization': 'Bearer ' + localStorage.getItem('Bearer')
             }
         });
-        
-        
+        $.ajax({
+            type: 'get',
+            url : '/getUserId',
+            data:
+                {
+                    token:localStorage.getItem('Bearer'),
+                },
+            success: function (res){
+                localStorage.setItem("id", res);
+            }
+        });
+        auth = `<a type="button" class="btn btn-outline-primary me-2" onclick="logout()">Logout <i class="bi bi-box-arrow-right"></i></a>`
     }
+    else {
+        auth = `<a type="button" class="btn btn-outline-primary me-2" href="/Home/LogIn">Login <i class="bi bi-box-arrow-in-left"></i></a>
+        <a type="button" class="btn btn-primary" href="/Home/SignIn">Sign-up <i class="bi bi-person-plus"></i></a>`
+    }
+    $('#auth').html(auth);
+    
     var sec = 0;
     var rand;
+    var tariffID;
 });
+
+function lastOrders()
+{
+    $.ajax(
+        {
+            type:'get',
+            url:'/getOrdersByUserId',
+            dataType: 'json',
+            data:{
+                id: localStorage.getItem("id")
+            },
+            success: function (res)
+            {
+                console.log(res)
+                var result = ``;
+                if (res.length === 0){
+                    result = `<img src="/img/PoroSad.png" class="rounded mx-auto d-block">
+                                <h3>Porosad is extremely sad today</h3>`
+                }
+                document.getElementById('sideBar')
+                res.slice(-5).reverse().forEach(function (order)
+                {
+                 result += `<div class="d-flex justify-content-between align-items-center" >
+                    <h5 class="text-start"> <i class="bi bi-dot"></i> ${order.start.split(',').slice(-3)} <br><br> <i class="bi bi-dot"></i> ${order.finish.split(',').slice(-3)} </h5>
+                    </div><hr>`
+                    // <button class="btn btn-primary"><i class="bi bi-arrow-counterclockwise"></i></button>
+                })
+                $('#sideBar').html(result)
+            }
+        });
+    
+}
 function logout(){
     localStorage.removeItem('Bearer');
+    localStorage.removeItem("id");
     window.location.href = "/";
-    
 }
 async function login(){
     var data = {
@@ -174,81 +224,75 @@ elements.forEach(function (element)
     element.classList.add('.dark-theme');
 });
 
-nominContainer.addEventListener("change", async ()=>
+nominContainer.childNodes[0].addEventListener("mouseout", async ()=>
 {
     waitingRouting();
 })
 
-async function newOrder(price, name){
-    if (nomin._selectedRoute){
-        sec =0;
-        rand = Math.floor(Math.random() *60);
-        console.log(rand);
-        $.ajax(
-            {
-                type:'get',
-                url:'/getTariffByName',
-                dataType: 'json',
-                data:
-                    {
-                        name: name,
-                    },
-                success: function (tariff)
-                {
-                    $.ajax(
-                        {
-                            type:'get',
-                            url:'/getFreeCarsByTariffId',
-                            dataType: 'json',
-                            data:
-                                {
-                                    id: tariff[0].id,
-                                },
-                            success: function (car)
-                            {
-                                $.ajax({
-                                    type: 'get',
-                                    url : '/getUserId',
-                                    data:
-                                        {
-                                            token:localStorage.getItem('Bearer'), 
-                                        },
-                                    success: function (res) {
-                                        $.ajax({
-                                            type: 'post',
-                                            url: '/newOrder',
-                                            data: {
-                                                userId: res,
-                                                driverId: car[0].driverId,
-                                                start: nomin._selectedRoute.waypoints[0].name.split(",").reverse().join(),
-                                                finish : nomin._selectedRoute.waypoints[nomin._selectedRoute.waypoints.length -1].name.split(",").reverse().join(),
-                                                status : 0,
-                                                price : price,
-                                                timeStart: new Date().toJSON(),
-                                            },
-                                            success: function (res)
-                                            {
-                                                waitingForCar();
-                                                timer();
-                                            },
-                                        });    
-                                    }
-                                })
-                            }
-                        });
-                }
-            });
 
+
+async function newOrder(price, name){
+    if (localStorage.getItem('Bearer')) {
+        if (nomin._selectedRoute) {
+            sec = 0;
+            rand = Math.floor(Math.random() * 60);
+            console.log(rand);
+            $.ajax(
+                {
+                    type: 'get',
+                    url: '/getTariffByName',
+                    dataType: 'json',
+                    data:
+                        {
+                            name: name,
+                        },
+                    success: function (tariff) {
+                        tariffID = tariff[0].id;
+                        $.ajax(
+                            {
+                                type: 'get',
+                                url: '/getFreeCarsByTariffId',
+                                dataType: 'json',
+                                data:
+                                    {
+                                        id: tariff[0].id,
+                                    },
+                                success: function (car) {
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/newOrder',
+                                        data: {
+                                            userId: localStorage.getItem('id'),
+                                            driverId: car[0].driverId,
+                                            start: nomin._selectedRoute.waypoints[0].name.split(",").reverse().join(),
+                                            finish: nomin._selectedRoute.waypoints[nomin._selectedRoute.waypoints.length - 1].name.split(",").reverse().join(),
+                                            status: 0,
+                                            price: price,
+                                            timeStart: new Date().toJSON(),
+                                        },
+                                        success: function (res) {
+                                            waitingForCar();
+                                            timer();
+                                        },
+                                    });
+                                }
+                            });
+                    }
+                });
+
+        } else {
+            alert("Route not selected");
+        }
     }
     else {
-        window.confirm("Route not selected");
+        // window.confirm("You are not registered");
+        alert("You are not registered");
     }
-
 }
 function waitingForCar()
 {
     var result ='<div class="text-center">'+
-        '<div class="spinner-border" role="status">'+
+        '<div class="spinner-grow" role="status">'+
         '</div><br>'+
         '<h3 class="visible">Очікуйте, пошук вільного таксі...</h3>'+
         '<h3 id="timersec">0</h3>'+
@@ -260,23 +304,13 @@ function waitingForCar()
 function cancelOrder()
 {
     $.ajax({
-        type: 'get',
-        url : '/getUserId',
+        type: 'post',
+        url: '/setStatusToLastUserOrder',
         data:
             {
-                token:localStorage.getItem('Bearer'),
-            },
-        success: function (res){
-            $.ajax({
-                type: 'post',
-                url: '/setStatusToLastUserOrder',
-                data:
-                    {
-                        userId: res,
-                        status: -1
-                    }
-            });
-        }
+                userId: localStorage.getItem('id'),
+                status: -1
+            }
     });
 }
 
@@ -310,9 +344,9 @@ async function getTariffs(){
     }
 }
 
-function waitingRouting()
+async function waitingRouting()
 {
-    if (nomin._selectedRoute){
+    if (await nomin._selectedRoute){
         getTariffs();
     }
     else
@@ -321,23 +355,65 @@ function waitingRouting()
     }
 }
 
-function timer()
+async function timer()
 {
     
     if (sec === rand)
     {
-        console.log(sec, rand)
-        // result = '<div class="card" style="width: 18rem;">'+
-        //     '  <img src="/img/driver/driver.png" class="card-img-top"'+
-        //     '  <div class="card-body">'+
-        //     '    <h5 class="card-title">Card title</h5>'+
-        //     '    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>'+
-        //     '    <a href="#" class="btn btn-primary">Go somewhere</a>'+
-        //     '  </div>'+
-        //     '</div>'
-        result = '<div class="text-center"><h3>Timer working</h3><br>'+
-            '<button onclick="getTariffs(); cancelOrder()" type="button" class="btn btn-danger">Відмінити замовлення</button></div>'
-        $('#userPanel').html(result);
+        $.ajax({
+            type: 'get',
+            url: '/getOrdersByUserId',
+            data:
+                {
+                    id: localStorage.getItem('id'),
+                },
+            success: function (res) {
+                var orders = JSON.parse(res)
+                $.ajax({
+                    type: 'get',
+                    url : '/getDriverById',
+                    data:
+                        {
+                            id: orders[orders.length -1].driverId,
+                        },
+                    success: function (driver) {
+                        var parsedDriver = JSON.parse(driver)
+                        $.ajax({
+                            type: 'get',
+                            url: '/getCarByDriverId',
+                            data:
+                                {
+                                    id: parsedDriver.id,
+                                },
+                            success: function (cars) {
+                                const parsedCar = JSON.parse(cars);
+                                
+                                console.log(parsedCar)
+                                console.log(tariffID)
+                                var needbleCar = parsedCar.find(function (car)
+                                {
+                                    return car.tariffId === tariffID;
+                                });
+                                console.log(needbleCar)
+                                result = '<div class="card" style="width: 18rem;">'+
+                                    '  <img src="/img/driver/driver.png" class="card-img-top rounded-circle"'+
+                                    '  <div class="card-body">'+
+                                    '    <h3 class="card-title">'+parsedDriver.name+' '+ parsedDriver.surname +'</h3> <hr>'+
+                                    '    <h4 class="card-text">'+ needbleCar.brand +' '+ needbleCar.model + '<br>' + needbleCar.plate + '</h4>'+
+                                    '    <button onclick="getTariffs(); cancelOrder()" type="button" class="btn btn-danger">Відмінити замовлення</button>'+
+                                    '  </div>'+
+                                    '</div>'
+                                console.log(sec, rand)
+                                $('#userPanel').html(result);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        
+        
+        
     }
     else
     {
@@ -349,4 +425,13 @@ function tick()
     sec++;
     document.getElementById("timersec").innerHTML = sec;
     timer();
+}
+
+function alert(message)
+{
+    var result = `<div class="alert alert-warning alert-dismissible fade show position-absolute top-0 start-50 translate-middle-x" role="alert">
+                   ${message}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`
+    $('#tooltips').html(result);
 }
