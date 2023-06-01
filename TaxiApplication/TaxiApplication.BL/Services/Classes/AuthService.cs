@@ -41,8 +41,8 @@ public class AuthService: IAuthService
         {
             var users = _userService.GetUserByLogin(user.login);
             var forUser = _mapper.ProjectTo<User>(users).First();
-            var tocken = _jwtService.CreateJWT(_mapper.Map<UserModel>(forUser), _configuration);
-            return tocken;
+            var token = _jwtService.CreateJWT(_mapper.Map<UserModel>(forUser), _configuration);
+            return token;
         }
 
         return null;
