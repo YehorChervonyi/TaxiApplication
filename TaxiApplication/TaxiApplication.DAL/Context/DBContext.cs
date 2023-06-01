@@ -33,8 +33,8 @@ public class DBContext : DbContext
                 new User
             {
                 id = 1,
-                name = "Name1",
-                surname = "Sur1",
+                name = "Андрій",
+                surname = "Ткаченко",
                 phone = "123123",
                 login = "login1",
                 password = "pass1",
@@ -43,8 +43,8 @@ public class DBContext : DbContext
                 new User
                 {
                     id = 2,
-                    name = "Name2",
-                    surname = "Sur2",
+                    name = "Борис",
+                    surname = "Кравчук",
                     phone = "123123",
                     login = "login2",
                     password = "pass2",
@@ -79,39 +79,39 @@ public class DBContext : DbContext
                     id = 4,
                     name = "Мікроавтобус",
                     price = 11,
-                    fee = 50 
+                    fee = 70 
                 });
         modelBuilder.Entity<Driver>()
             .HasData(
                 new Driver()
                 {
                     id = 1,
-                    name = "Name1",
-                    surname = "Sur1",
+                    name = "Василь",
+                    surname = "Ткач",
                     experience = 1,
                     status = 1,
                 },
                 new Driver()
                 {
                     id = 2,
-                    name = "Name2",
-                    surname = "Sur2",
+                    name = "Всеволод",
+                    surname = "Білоус",
                     experience = 2,
                     status = 1,
                 },
                 new Driver()
                 {
                     id = 3,
-                    name = "Name3",
-                    surname = "Sur3",
+                    name = "Данило",
+                    surname = "Дяченко",
                     experience = 2,
                     status = 1,
                 },
                 new Driver()
                 {
                     id = 4,
-                    name = "Name4",
-                    surname = "Sur4",
+                    name = "Євген",
+                    surname = "Мазур",
                     experience = 2,
                     status = 1,
                 });
@@ -122,9 +122,9 @@ public class DBContext : DbContext
                     id = 1,
                     tariffId = 1,
                     driverId = 1,
-                    plate = "plate",
-                    brand = "brand",
-                    model = "model",
+                    plate = "ВА1234АВ",
+                    brand = "Daewoo",
+                    model = "Lanos",
                     seats = 4
                 },
                 new Car()
@@ -132,9 +132,9 @@ public class DBContext : DbContext
                     id = 2,
                     tariffId = 2,
                     driverId = 2,
-                    plate = "plate",
-                    brand = "brand",
-                    model = "model",
+                    plate = "АР7642АВ",
+                    brand = "Ford",
+                    model = "Mondeo",
                     seats = 4
                 },
                 new Car()
@@ -142,9 +142,9 @@ public class DBContext : DbContext
                     id = 3,
                     tariffId = 3,
                     driverId = 1,
-                    plate = "plate",
-                    brand = "brand",
-                    model = "model",
+                    plate = "ВА2345АВ",
+                    brand = "Mercedes-Benz",
+                    model = "S350d L",
                     seats = 4
                 },
                 new Car()
@@ -152,10 +152,10 @@ public class DBContext : DbContext
                     id = 4,
                     tariffId = 4,
                     driverId = 2,
-                    plate = "plate",
-                    brand = "brand",
-                    model = "model",
-                    seats = 5
+                    plate = "КА4567АA",
+                    brand = "Mercedes-Benz",
+                    model = "Vito",
+                    seats = 9
                 });
         modelBuilder.Entity<Order>()
             .HasData(
