@@ -25,6 +25,8 @@ public class AutoMapperProfile : Profile
                 opt => opt.MapFrom(carModel => carModel.driverId));
 
         CreateMap<DriverModel, Driver>()
+            .ForMember(driver => driver.id,
+                opt => opt.MapFrom(driverModel => driverModel.id))
             .ForMember(driver => driver.name,
                 opt => opt.MapFrom(driverModel => driverModel.name))
             .ForMember(driver => driver.surname,
@@ -91,6 +93,8 @@ public class AutoMapperProfile : Profile
                 opt => opt.MapFrom(car => car.seats));
 
         CreateMap<Driver, DriverModel>()
+            .ForMember(driverModel => driverModel.id,
+                opt => opt.MapFrom(driver => driver.id))
             .ForMember(driverModel => driverModel.name,
                 opt => opt.MapFrom(driver => driver.name))
             .ForMember(driverModel => driverModel.surname,
