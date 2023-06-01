@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using TaxiApplication.BL.Extensions;
 using TaxiApplication.DAL.Context;
 using TaxiApplication.DAL.Extensions;
@@ -14,7 +15,32 @@ builder.Services.AddServices(builder.Configuration);
 
 builder.Services.AddMapper();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(config =>
+{
+    config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "bearer"
+    });
+    config.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
+});
 
 
 
