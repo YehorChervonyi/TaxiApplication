@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Map";
+    Layout = "_NewLayout";
 }
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
@@ -9,11 +10,18 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
-@* <div class="text-center"> *@
-@*     <h1 class="display-4">Map</h1> *@
-@*     <p>Map testing</p> *@
-@* </div> *@
 <div class="text-center">
+    <button class="btn btn-primary position-absolute top-50 end-0 translate-middle-y" onclick="lastOrders()" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-arrow-bar-left"></i></button>
+    
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Останні 5 замовлень</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+        <div class="offcanvas-body" id="sideBar">
+        </div>
+    </div>
+    
     <div id="map" style="width: auto; height: 60vh; position: relative; display: flex; justify-content: center;align-items: center; padding: 0; margin: 0;"></div>
     <hr>
     <div id="userPanel" class="d-flex justify-content-evenly mb-3"></div>
