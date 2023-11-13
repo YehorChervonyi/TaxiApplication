@@ -21,7 +21,7 @@ public static class Injecting
         
         services.AddDbContext<DBContext>(options =>
         {
-            options.UseSqlServer(
+            options.UseNpgsql(
                 configuration["ConnectionString"]);
         });
     }
